@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS main (
+    message TEXT NOT NULL,
+    date TIMESTAMPTZ
+);

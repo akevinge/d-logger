@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  db:
+    image: "postgres:13"
+    environment:
+      POSTGRES_PASSWORD: "${PGPASSWORD}"
+      POSTGRES_USER: "${PGUSER}"
+      POSTGRES_DB: "${PGDATABASE}"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    ports:
+      - 5432:5432
+  bot:
+    image: discord-logger
+    depends_on:
+      - db
+    env_file: ".env"

@@ -1,0 +1,29 @@
+{
+  "name": "logger",
+  "version": "1.0.0",
+  "description": "discord data logger",
+  "main": "index.js",
+  "repository": "https://github.com/innub/discord-logger",
+  "author": "innub",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.22.0",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "@types/mysql": "^2.15.19",
+    "@types/node": "^16.7.9",
+    "@types/pg": "^8.6.1",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc --build",
+    "start": "node dist/src/index.js"
+  }
+}
