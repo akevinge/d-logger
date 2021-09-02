@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: "${PGUSER}"
       POSTGRES_DB: "${PGDATABASE}"
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - D:/Development/discord-logger/pgdata:/var/lib/postgresql/data
       - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
     ports:
       - 5432:5432
@@ -16,3 +16,5 @@ services:
     depends_on:
       - db
     env_file: ".env"
+volumes:
+  pgdata:

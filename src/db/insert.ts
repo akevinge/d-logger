@@ -6,7 +6,7 @@ export const insertMessage = (message: string) => {
     .then((client) => {
       client
         .query(
-          "INSERT into main(message, date) VALUES($1, current_timestamp) RETURNING *",
+          "INSERT into main(message, date) VALUES($1, current_timestamp)",
           [message]
         )
         .catch((err) => process.exit(-1))
