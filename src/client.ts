@@ -6,18 +6,22 @@ import { prefix } from "./lib/constants";
 import { containsFlags, matchFlag } from "./utils";
 
 const client = new Client({
-  intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS],
+  intents: [
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.DIRECT_MESSAGES,
+  ],
 });
 
 client.on(
   "messageCreate",
   async ({
     content,
+    author,
     author: { id: userId, bot: isBot },
     channelId,
     guildId,
     guild,
-    channel,
   }) => {
     if (!isBot) {
       const isCommand = content.startsWith(prefix);
@@ -57,7 +61,7 @@ client.on(
                 insertServer({
                   discord_server_id: guildId,
                   server_tags: serverTags,
-                }).then(() => channel.send("Server added"));
+                }).then(() => author.send("Server added"));
               }
               const hasChannel = await channelExists(channelId);
               if (channelTags && (!exists || (exists && !hasChannel))) {
@@ -69,13 +73,13 @@ client.on(
               }
 
               if (hasChannel && serverTags && exists) {
-                channel.send("Server and channel already added");
+                author.send("Server and channel already added");
               } else if (channelTags && hasChannel) {
-                channel.send("Channel already added");
+                author.send("Channel already added");
               }
             });
           } catch (err) {
-            channel.send(
+            author.send(
               `Incorrect format. Ex: ${prefix} -s tag1,tag2,tag3 -c tag1,tag2,tag3`
             );
           }

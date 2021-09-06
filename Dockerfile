@@ -1,6 +1,6 @@
 FROM node:16.8.0-alpine3.11
 
-WORKDIR /usr/discord-logger
+WORKDIR /usr/d-logger
 
 COPY package*.json ./
 

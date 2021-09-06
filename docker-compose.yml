@@ -12,7 +12,7 @@ services:
     ports:
       - 5432:5432
   bot:
-    image: discord-logger
+    image: d-logger
     depends_on:
       - db
     env_file: ".env"
