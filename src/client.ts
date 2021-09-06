@@ -3,7 +3,12 @@ import { insertChannel, insertMessage, insertServer } from "./db/insert";
 import { channelExists, serverExists } from "./db/select";
 import { Flags } from "./lib/commandsAndFlags";
 import { prefix } from "./lib/constants";
-import { containsFlags, matchFlag } from "./utils";
+import {
+  containsFlags,
+  matchAddChannelFlagInfo,
+  matchAddChannelString,
+  matchFlag,
+} from "./utils";
 
 const client = new Client({
   intents: [
@@ -43,15 +48,15 @@ client.on(
               ?.substring(addServerString.indexOf(" "))
               .trim();
 
-            const addChannelString = matchFlag(command, Flags.ADD_CHANNEL_FLAG);
+            const addChannelString = matchAddChannelString(command);
 
-            const channelTags = addChannelString
-              .substring(addChannelString.indexOf(" "))
-              .trim();
+            const { addChannelId, channelTags } = addChannelString
+              ? matchAddChannelFlagInfo(addChannelString)
+              : { addChannelId: null, channelTags: null };
 
             if (
               (addServerString && !serverTags) ||
-              (addChannelString && !channelTags)
+              (addChannelString && (!channelTags || !addChannelId))
             ) {
               throw new Error("");
             }
@@ -62,14 +67,16 @@ client.on(
                   discord_server_id: guildId,
                   server_tags: serverTags,
                 }).then(() => author.send("Server added"));
+              } else if (serverTags) {
+                author.send("Server already added");
               }
-              const hasChannel = await channelExists(channelId);
+              const hasChannel = await channelExists(addChannelId);
               if (channelTags && (!exists || (exists && !hasChannel))) {
                 insertChannel({
-                  discord_channel_id: channelId,
+                  discord_channel_id: addChannelId,
                   discord_server_id: guildId,
                   channel_tags: channelTags,
-                });
+                }).then(() => author.send("Channel Added"));
               }
 
               if (hasChannel && serverTags && exists) {
