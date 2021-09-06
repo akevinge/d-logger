@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "discord data logger",
   "main": "index.js",
-  "repository": "https://github.com/innub/discord-logger",
+  "repository": "https://github.com/innub/d-logger",
   "author": "innub",
   "license": "MIT",
   "dependencies": {
@@ -24,6 +24,6 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc --build",
-    "start": "node dist/src/index.js"
+    "start": "node dist/index.js"
   }
 }

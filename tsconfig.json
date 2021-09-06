@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "outDir": "./dist",
-    "rootDir": ".",
+    "rootDir": "./src",
     "sourceMap": true,
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true
