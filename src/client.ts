@@ -2,7 +2,7 @@ import { Client, Intents, Permissions } from "discord.js";
 import { insertChannel, insertMessage, insertServer } from "./db/insert";
 import { channelExists, serverExists } from "./db/select";
 import { Flags } from "./lib/commandsAndFlags";
-import { prefix } from "./lib/constants";
+import { botToken, prefix } from "./lib/constants";
 import {
   containsFlags,
   matchAddChannelFlagInfo,
@@ -105,4 +105,4 @@ client.on(
 
 client.on("ready", () => console.log(`Bot running on ${client.user?.tag}`));
 
-export const runClient = () => client.login(process.env.BOT_TOKEN);
+export const runClient = () => client.login(botToken);
