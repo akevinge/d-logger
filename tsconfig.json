@@ -5,6 +5,8 @@
     "rootDir": "./src",
     "sourceMap": true,
     "module": "commonjs",
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "strict": true
   }
 }

@@ -1,4 +1,4 @@
-import { Pool } from "pg";
+import { Pool, PoolClient, QueryResult } from "pg";
 import {
   PGDATABASE,
   PGHOST,
@@ -7,7 +7,7 @@ import {
   PGUSER,
 } from "../lib/dbConfig";
 
-export const pgPool = new Pool({
+const pgPool = new Pool({
   user: PGUSER,
   host: PGHOST,
   database: PGDATABASE,
@@ -16,3 +16,20 @@ export const pgPool = new Pool({
   connectionTimeoutMillis: 1000 * 10,
   port: PGPORT,
 });
+
+const pgPoolConnect = () =>
+  pgPool.connect().catch(() => {
+    console.log("PG Connection Error");
+    process.exit(-1);
+  });
+
+export const pgPoolQuery = <T = any>(
+  sqlString: string,
+  values: any[] = []
+): Promise<QueryResult<T> | null> =>
+  pgPoolConnect().then((client) =>
+    client
+      .query(sqlString, values)
+      .finally(() => client.release())
+      .catch(() => null)
+  );
