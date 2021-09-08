@@ -31,5 +31,8 @@ export const pgPoolQuery = <T = any>(
     client
       .query(sqlString, values)
       .finally(() => client.release())
-      .catch(() => null)
+      .catch((e) => {
+        console.log(e);
+        return null;
+      })
   );

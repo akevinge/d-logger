@@ -18,5 +18,6 @@ CREATE TABLE IF NOT EXISTS discord_messages (
     date TIMESTAMPTZ,
     discord_channel_id VARCHAR(100) NOT NULL REFERENCES discord_channels(discord_channel_id),
     discord_server_id VARCHAR(100) NOT NULL REFERENCES discord_servers(discord_server_id),
-    discord_author_id VARCHAR(100) NOT NULL
+    discord_author_id VARCHAR(100) NOT NULL,
+    discord_message_id VARCHAR(100) NOT NULL
 );
