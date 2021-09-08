@@ -9,3 +9,9 @@ export const extractCommand = (str: string) => {
     `${allCommands.map(({ commandName }) => commandName).join("|")}`
   ).exec(str)?.[0];
 };
+
+export const messageContentFilter = (str: string) => {
+  return str
+    .replace(new RegExp("(http|www).*?(?=\\s|$)", "g"), "")
+    .replace(/\n/g, " ");
+};
