@@ -13,5 +13,6 @@ export const extractCommand = (str: string) => {
 export const messageContentFilter = (str: string) => {
   return str
     .replace(new RegExp("(http|www).*?(?=\\s|$)", "g"), "")
+    .replace(/(<).*(>)/g, "")
     .replace(/\n/g, " ");
 };
